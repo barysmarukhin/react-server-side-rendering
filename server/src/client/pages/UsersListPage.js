@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { fetchUsers } from '../actions';
+import { fetchUsers } from '../actions/index';
 
-class UsersList extends Component {
+class UsersListPage extends Component {
+    //it is not useful since we use initialState when the store is created
     componentDidMount() {
-        this.props.fetchUsers();
+        // this.props.fetchUsers();
     }
 
     renderUsers() {
@@ -35,7 +36,7 @@ function loadData(store) {
 
 export { loadData };
 
-export default connect(
-    mapStateToProps,
-    { fetchUsers }
-)(UsersList);
+export default {
+    loadData,
+    component: connect(mapStateToProps,{ fetchUsers })(UsersListPage)
+}
