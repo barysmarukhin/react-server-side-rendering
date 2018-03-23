@@ -12,14 +12,16 @@ const Header = ({ auth }) => {
     );
 
     return (
-        <div>
-            <Link to="/">React SSR</Link>
-            <div>
-                <Link to="/">Users</Link>
-                <Link to="/">Admins</Link>
-                {authButton}
+        <nav>
+            <div className='nav-wrapper'>
+                <Link to="/" className='brand-logo'>React SSR</Link>
+                <ul className='right'>
+                    <li><Link to="/users">Users</Link></li>
+                    <li><Link to="/admins">Admins</Link></li>
+                    <li>{authButton}</li>
+                </ul>
             </div>
-        </div>
+        </nav>
     );
 };
 
