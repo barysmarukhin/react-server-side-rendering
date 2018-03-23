@@ -312,9 +312,15 @@ app.get('*', function (req, res) {
     var route = _ref.route;
 
     return route.loadData ? route.loadData(store) : null;
+  }).map(function (promise) {
+    if (promise) {
+      return new Promise(function (resolve, reject) {
+        promise.then(resolve).catch(resolve);
+      });
+    }
   });
 
-  Promise.all(promises).then(function () {
+  var render = function render() {
     var context = {};
     var content = (0, _renderer2.default)(req, store, context);
 
@@ -323,7 +329,9 @@ app.get('*', function (req, res) {
     }
 
     res.send(content);
-  });
+  };
+
+  Promise.all(promises).then(render);
 
   // Some logic to initialize
   // and load data into the store
