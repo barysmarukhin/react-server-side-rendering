@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchUsers } from '../actions/index';
+import { Helmet } from 'react-helmet';
 
 class UsersListPage extends Component {
     //it is not useful since we use initialState when the store is created
     componentDidMount() {
-        // this.props.fetchUsers();
+        this.props.fetchUsers();
     }
 
     renderUsers() {
@@ -14,9 +15,19 @@ class UsersListPage extends Component {
         });
     }
 
+    head() {
+        return (
+            <Helmet>
+                <title>{`${this.props.users.length} Users Loaded`}</title>
+                <meta property="og:title" content="Users App"/>
+            </Helmet>
+        );
+    }
+
     render() {
         return (
             <div>
+                {this.head()}
                 Here's a big list of users:
                 <ul>{this.renderUsers()}</ul>
             </div>
